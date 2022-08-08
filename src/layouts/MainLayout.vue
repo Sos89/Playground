@@ -1,6 +1,6 @@
 
 <template>
-  <div class="">
+  <div>
     <q-layout view="hHh Lpr lff" container style="height: 100vh; " >
       <q-drawer
         v-model="drawer"

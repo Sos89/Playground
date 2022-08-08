@@ -1,35 +1,55 @@
 <template>
-    <div class="flex column" style="height: 100vh;">
+    <div class="flex column">
       <div class="input_div">
+        <h1>{{success}}</h1>
       <p class="login">Login</p>
         <label class="enter_email" for="email">Enter your email</label>
-        <q-input v-model="model" type="email" class="input" placeholder="myemail@mail.com"/>
-      <q-btn class="q-mt-sm" id="button" label="Send code" @click="reset" color="primary"/>
+        <form @submit.prevent="reset">
+          <q-input v-model="form.email" type="email" class="input" placeholder="myemail@mail.com"/>
+          <q-btn no-caps unelevated class="q-mt-sm" type="submit" id="button" label="Send code" color="primary"/>
+        </form>
       </div>
     </div>
 </template>
 
 <script>
 import { ref } from 'vue'
+import axios from "axios";
+import { useQuasar } from 'quasar'
 export default {
 name: "Log-in",
   setup () {
     const inputRef = ref(null)
 
     return {
-      model: '',
+      form: {
+        email: ''
+      },
+      success: '',
       inputRef,
       dense: ref(false),
     }
   },
+
   methods: {
     reset() {
-
-
       // localStorage.setItem('storedData', this.model)
-
-
-    }
+      if (this.form.email === localStorage.storedData){
+        axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', this.form)
+          // demo@demo.com
+          .then((res) => {
+              // console.log(localStorage.storedData);
+              // alert('Success')
+            const $q = useQuasar()
+            $q.notify({
+              type: 'positive',
+              message: 'This is a "positive" type notification.'
+            })
+              this.$router.push('/code');
+        })
+      }
+      this.success = ''
+    },
   }
 }
 </script>
@@ -90,4 +110,5 @@ name: "Log-in",
   letter-spacing: 0.25px;
   color: rgba(0, 0, 0, 0.87);
 }
+
 </style>
