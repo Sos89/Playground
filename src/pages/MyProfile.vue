@@ -159,7 +159,6 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 0;
-  /*height: 100vh;*/
 }
 .work{
   width: 90px;
@@ -191,7 +190,6 @@ export default {
   height: 32px;
   background: #F5F6F7;
   border-radius: 4px;
-  /*font-size: 24px;*/
   color: #95A2A7!important;
 }
 .create_btn{
@@ -201,7 +199,6 @@ export default {
   height: 32px!important;
   background: #F5F6F7;
   border-radius: 4px;
-  /*font-size: 32px;*/
   color: #95A2A7!important;
 }
 

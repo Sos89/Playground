@@ -7,14 +7,41 @@
       >
     </div>
     <p class="for_coming">Coming soon</p>
-    <router-link id="edit" to="">EDIT MY PROFILE AND MY WORKLOG</router-link>
-    <q-btn color="white" text-color="black" id="logout" label="LOGOUT" />
+    <router-link id="edit" to="profile">EDIT MY PROFILE AND MY WORKLOG</router-link>
+    <form @submit.prevent="logouth">
+      <q-btn type="submit" color="white" text-color="black" id="logout" label="LOGOUT" />
+    </form>
+
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: "index-list"
+  name: "index-list",
+  methods: {
+    logouth(){
+      if (localStorage.res || localStorage.token || localStorage.refreshToken){
+        localStorage.removeItem('res')
+        localStorage.removeItem('token')
+        localStorage.removeItem('refreshToken')
+        this.$q.notify({
+          message: 'logouth successfully',
+          position: 'top',
+          color: 'green'
+        })
+        setTimeout(() => {
+          this.$router.push('/code')
+        }, 2000)
+      }
+      this.$q.notify({
+        message: 'You have dont login',
+        position: 'top',
+        color: 'red'
+      })
+    }
+  }
 };
 </script>
 

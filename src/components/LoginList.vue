@@ -1,11 +1,16 @@
 <template>
     <div class="flex column">
       <div class="input_div">
-        <h1>{{success}}</h1>
       <p class="login">Login</p>
         <label class="enter_email" for="email">Enter your email</label>
         <form @submit.prevent="reset">
-          <q-input v-model="form.email" type="email" class="input" placeholder="myemail@mail.com"/>
+          <q-input
+            v-model="form.email"
+            type="email"
+            class="input"
+            placeholder="myemail@mail.com"
+            :rules="[val => !!val || 'Field is required']"
+          />
           <q-btn no-caps unelevated class="q-mt-sm" type="submit" id="button" label="Send code" color="primary"/>
         </form>
       </div>
@@ -15,40 +20,42 @@
 <script>
 import { ref } from 'vue'
 import axios from "axios";
-import { useQuasar } from 'quasar'
+import { Notify } from 'quasar'
 export default {
+  plugins: { Notify },
 name: "Log-in",
   setup () {
     const inputRef = ref(null)
-
     return {
       form: {
-        email: ''
+        email: ref('')
       },
-      success: '',
+      model: '',
       inputRef,
-      dense: ref(false),
     }
   },
-
   methods: {
     reset() {
-      // localStorage.setItem('storedData', this.model)
-      if (this.form.email === localStorage.storedData){
-        axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', this.form)
-          // demo@demo.com
-          .then((res) => {
-              // console.log(localStorage.storedData);
-              // alert('Success')
-            const $q = useQuasar()
-            $q.notify({
-              type: 'positive',
-              message: 'This is a "positive" type notification.'
+      axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', this.form)
+        .then((res) => {
+          if (res.status === 200){
+            localStorage.setItem('res', this.form.email)
+            this.$q.notify({
+              message: 'You have successfully passed the verification',
+              position: 'top',
+              color: 'green'
             })
-              this.$router.push('/code');
+            setTimeout(() => {
+              this.$router.push('/code')
+            }, 2000)
+          }})
+        .catch(err => {
+          this.$q.notify({
+            message: 'Enter the correct Login',
+            position: 'top',
+            color: 'red'
+          })
         })
-      }
-      this.success = ''
     },
   }
 }
@@ -70,6 +77,7 @@ name: "Log-in",
   font-size: 24px;
   line-height: 32px;
   color: #003367;
+  background: white!important;
 }
 .enter_email{
   height: 15px;
@@ -112,3 +120,4 @@ name: "Log-in",
 }
 
 </style>
+

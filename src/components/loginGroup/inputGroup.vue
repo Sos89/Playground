@@ -1,49 +1,71 @@
 <template>
   <div style="display: flex; flex-direction: row; align-items: center">
-  <v-otp-input
-    filled
-    ref="otpInput"
-    v-model="nn"
-    input-classes="otp-input"
-    separator=" "
-    :num-inputs="6"
-    :should-auto-focus="true"
-    :is-input-num="false"
-    :conditionalClass="['one', 'two', 'three', 'four', 'five', 'six']"
-    @on-change="handleOnChange"
-    @on-complete="handleOnComplete"
-  />
-    <span class="material-icons" id="btn" @click="clearInput()">close</span>
+    <form @submit.prevent="sendCode">
+      <v-otp-input
+        ref="otpInput"
+        input-classes="otp-input"
+        separator=" "
+        :num-inputs="6"
+        :should-auto-focus="true"
+        :is-input-num="false"
+        :conditionalClass="['one', 'two', 'three', 'four', 'five', 'six']"
+        @on-complete="handleOnComplete"
+      />
+      <q-btn type="submit" class="q-mt-sm" id="button" label="Submit" color="primary"/>
+    </form>
+      <span class="material-icons" id="btn" @click="clearInput()">close</span>
   </div>
-
 </template>
 
 <script>
 import { ref } from 'vue'
 import VOtpInput from 'vue3-otp-input';
+import { Notify } from 'quasar'
+import axios from "axios";
 export default {
+  plugins: { Notify },
   name: "inputGroup",
   components: {VOtpInput,},
   setup() {
     const otpInput = ref(null)
-
-    const handleOnComplete = (value) => {
-      console.log('OTP completed: ', value);
+    return {
+      otpInput,
+      code: '',
     };
-
-    const handleOnChange = (value) => {
-      console.log('OTP changed: ', value);
-    };
-
-    const clearInput = () => {
-      otpInput.value.clearInput()
-    };
-
-
-
-    return { handleOnComplete, handleOnChange, clearInput, otpInput };
   },
+  methods: {
+    handleOnComplete(value) {
+      this.code = value
+    },
 
+    clearInput() {
+      this.$refs.otpInput.clearInput();
+    },
+    sendCode() {
+      axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/LoginWithCode',{code: this.code, email:localStorage.res } )
+        .then((res) => {
+          localStorage.setItem('token', res.data.jwt.token)
+          localStorage.setItem('refreshToken', res.data.jwt.refreshToken)
+          if (res.status === 200){
+            this.$q.notify({
+              message: 'You have successfully passed the verification',
+              position: 'top',
+              color: 'green'
+            })
+            setTimeout(() => {
+              this.$router.push('/')
+            }, 2000)
+          }
+        })
+        .catch(err => {
+          this.$q.notify({
+            message: 'Field',
+            position: 'top',
+            color: 'red'
+          })
+        })
+    }
+  }
 };
 </script>
 
@@ -85,5 +107,20 @@ input::placeholder {
   font-size: 32px;
   cursor: pointer;
   margin-left: 15px;
+  margin-top: -30px;
+}
+
+#button{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 9px 16px !important;
+  gap: 10px;
+  width: 117px;
+  height: 36px;
+  margin-left: 310px;
+  margin-top: 25px!important;
+  background: #003367 !important;
+  border-radius: 4px;
 }
 </style>

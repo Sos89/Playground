@@ -4,7 +4,6 @@
       <p class="login">Login</p>
       <p class="text">To finalize your verification, please enter the code that has been sent to your email address / SMS</p>
       <InputGroup></InputGroup>
-      <q-btn class="q-mt-sm" id="button" label="Submit" color="primary"/>
       <p class="msg">If you do not receive the confirmation message within a few minutes, please check your Spam or Bulk E-Mail folder</p>
     </div>
   </div>
@@ -44,20 +43,6 @@ export default {
   font-size: 24px;
   line-height: 32px;
   color: #003367;
-}
-
-#button{
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 9px 16px !important;
-  gap: 10px;
-  width: 117px;
-  height: 36px;
-  margin-left: 310px;
-  margin-top: 25px!important;
-  background: #003367 !important;
-  border-radius: 4px;
 }
 
 .msg{
