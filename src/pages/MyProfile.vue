@@ -98,7 +98,12 @@ import FridayNext from "components/profile/Friday/FridayNext";
 import ThursdayInput from "components/profile/Thursday/Thursday";
 export default {
   name: "MyProfile",
-  components: { ThursdayInput, FridayNext, FridayInput, WednesdayNext, WednesdayInput, TuesdayNext, TuesdayInput, MondayNext, MondayInput, SundayInput, GitHubProfile, SlackProfile, CheckBox, AbsenceS, StartInput, PhoneNumber, PersonalEmail, EmailInput, BirthDataInput, LastName, FirstName }
+  components: { ThursdayInput, FridayNext, FridayInput, WednesdayNext, WednesdayInput, TuesdayNext, TuesdayInput, MondayNext, MondayInput, SundayInput, GitHubProfile, SlackProfile, CheckBox, AbsenceS, StartInput, PhoneNumber, PersonalEmail, EmailInput, BirthDataInput, LastName, FirstName },
+  mounted() {
+    if (!localStorage.res && !localStorage.token && !localStorage.refreshToken){
+      this.$router.push('/')
+    }
+  },
 };
 </script>
 

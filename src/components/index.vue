@@ -32,16 +32,12 @@ export default {
           color: 'green'
         })
         setTimeout(() => {
-          this.$router.push('/code')
+          this.$router.push('/')
         }, 2000)
       }
-      this.$q.notify({
-        message: 'You have dont login',
-        position: 'top',
-        color: 'red'
-      })
     }
-  }
+  },
+
 };
 </script>
 

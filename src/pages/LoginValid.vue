@@ -6,7 +6,8 @@
 import LoginVerification from "components/LoginVerification";
 export default {
   name: "LoginValid",
-  components:{ LoginVerification }
+  components:{ LoginVerification },
+
 };
 </script>
 

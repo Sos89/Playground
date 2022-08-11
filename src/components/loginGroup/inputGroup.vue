@@ -53,7 +53,7 @@ export default {
               color: 'green'
             })
             setTimeout(() => {
-              this.$router.push('/')
+              this.$router.push('/home')
             }, 2000)
           }
         })
@@ -65,7 +65,8 @@ export default {
           })
         })
     }
-  }
+  },
+
 };
 </script>
 

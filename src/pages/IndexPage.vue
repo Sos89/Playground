@@ -14,5 +14,10 @@ export default defineComponent({
     return {
     }
   },
+  mounted() {
+    if (!localStorage.token){
+      this.$router.push('/')
+    }
+  },
 })
 </script>
