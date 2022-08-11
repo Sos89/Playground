@@ -19,7 +19,6 @@
 
 <script>
 import { ref } from 'vue'
-import axios from "axios";
 import { Notify } from 'quasar'
 export default {
   plugins: { Notify },
@@ -36,26 +35,28 @@ name: "Log-in",
   },
   methods: {
     reset() {
-      axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', this.form)
-        .then((res) => {
-          if (res.status === 200){
-            localStorage.setItem('res', this.form.email)
-            this.$q.notify({
-              message: 'You have successfully passed the verification',
-              position: 'top',
-              color: 'green'
-            })
-            setTimeout(() => {
-              this.$router.push('/code')
-            }, 2000)
-          }})
-        .catch(err => {
-          this.$q.notify({
-            message: 'Enter the correct Login',
-            position: 'top',
-            color: 'red'
-          })
-        })
+      this.$store.dispatch('myStore/getEmail', this.form)
+      // localStorage.setItem('res', this.form.email)
+      // axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', this.form)
+      //   .then((res) => {
+      //     if (res.status === 200){
+      //       localStorage.setItem('res', this.form.email)
+      //       this.$q.notify({
+      //         message: 'You have successfully passed the verification',
+      //         position: 'top',
+      //         color: 'green'
+      //       })
+      //       setTimeout(() => {
+      //         this.$router.push('/code')
+      //       }, 2000)
+      //     }})
+      //   .catch(err => {
+      //     this.$q.notify({
+      //       message: 'Enter the correct Login',
+      //       position: 'top',
+      //       color: 'red'
+      //     })
+      //   })
     },
   },
 
