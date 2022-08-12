@@ -9,7 +9,6 @@
             type="email"
             class="input"
             placeholder="myemail@mail.com"
-            :rules="[val => !!val || 'Field is required']"
           />
           <q-btn no-caps unelevated class="q-mt-sm" type="submit" id="button" label="Send code" color="primary"/>
         </form>
@@ -18,25 +17,51 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { mapActions,mapGetters ,mapMutations } from 'vuex'
 import { Notify } from 'quasar'
 export default {
   plugins: { Notify },
 name: "Log-in",
   setup () {
-    const inputRef = ref(null)
     return {
       form: {
-        email: ref('')
+        email: ''
       },
-      model: '',
-      inputRef,
     }
   },
+
+  computed: {
+    ...mapGetters('myStore',['getEmail']),
+  },
   methods: {
-    reset() {
-      this.$store.dispatch('myStore/getEmail', this.form)
-      // localStorage.setItem('res', this.form.email)
+    ...mapActions("myStore",["fetchEmail"]),
+    ...mapMutations("myStore",['setEmail']),
+  async  reset() {
+   await this.fetchEmail(this.form)
+    if (this.getEmail ) {
+      localStorage.setItem('res', this.getEmail)
+      this.$router.push('/code')
+      }else{
+          this.$q.notify({
+            message: 'Enter the correct Login',
+            position: 'top',
+            color: 'red'
+          })
+    }
+
+      // localStorage.setItem('test', JSON.stringify(user) )
+      // const esiminch = localStorage.getItem('test')
+      // if (esiminch){
+      //   // console.log(JSON.parse(esiminch));
+      // }
+      // this.setEmail('sdfsd')
+      //     this.$q.notify({
+      //       message: 'Enter the correct Login',
+      //       position: 'top',
+      //       color: 'red'
+      //     })
+    // }
+
       // axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', this.form)
       //   .then((res) => {
       //     if (res.status === 200){

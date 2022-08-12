@@ -1,4 +1,4 @@
 
-export function setEmail (state, setEmail) {
-  state.email = setEmail;
+export function setEmail (state, payload) {
+  state.email = payload
 }

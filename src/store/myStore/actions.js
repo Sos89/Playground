@@ -1,13 +1,11 @@
 import axios from "axios";
-import { setEmail } from "src/store/myStore/mutations";
-export function getEmail (state, payload) {
-  axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', payload)
-    .then(res => {
-      console.log(payload.email);
-          if (res.status === 200){
-              this.$router.push('/code')
-          }
-      })
-  payload.email = state
+export async function  fetchEmail ({ commit }, payload) {
+  try {
+    const { status ,config } = await axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', payload)
+    if (status === 200) {
+      commit('setEmail', payload.email)
+    }
+  }catch (e) {
+    return false;
+  }
 }
-
