@@ -49,42 +49,18 @@ export default {
     },
 
     async sendCode() {
-      console.log( this.getCode );
       const email = localStorage.res
        await this.fetchCode({code: this.code, email })
-      if ( this.code ) {
-      localStorage.setItem('token', JSON.stringify(this.getCode))
+      if (this.code !== '') {
+        localStorage.setItem('token', JSON.stringify(this.getCode))
         this.$router.push('/home')
       }else {
-            this.$q.notify({
-              message: 'Field',
-              position: 'top',
-              color: 'red'
-            })
+        this.$q.notify({
+          message: 'Field',
+          position: 'top',
+          color: 'red'
+        })
       }
-      // this.$store.dispatch('login/getCode',{code: this.code, email:localStorage.res } )
-      // axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/LoginWithCode',{code: this.code, email:localStorage.res } )
-      //   .then((res) => {
-      //     localStorage.setItem('token', res.data.jwt.token)
-      //     localStorage.setItem('refreshToken', res.data.jwt.refreshToken)
-      //     if (res.status === 200){
-      //       this.$q.notify({
-      //         message: 'You have successfully passed the verification',
-      //         position: 'top',
-      //         color: 'green'
-      //       })
-      //       setTimeout(() => {
-      //         this.$router.push('/home')
-      //       }, 2000)
-      //     }
-      //   })
-      //   .catch(err => {
-      //     this.$q.notify({
-      //       message: 'Field',
-      //       position: 'top',
-      //       color: 'red'
-      //     })
-      //   })
     }
   },
 

@@ -5,11 +5,12 @@
 <script>
 import LoginComponent from 'components/LoginComponent'
 import { mapGetters } from 'vuex'
+import { Notify } from 'quasar'
 export default {
+  plugins: { Notify },
   name: "LoginCode",
   components: { LoginComponent },
 mounted() {
-  console.log(this.getEmail);
   if (!this.getEmail){
     this.$router.push('/')
   }

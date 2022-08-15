@@ -16,16 +16,22 @@
 </template>
 
 <script>
-import axios from "axios";
+import {mapMutations, mapGetters} from "vuex";
 
 export default {
   name: "index-list",
+  computed: {
+    ...mapGetters('login', ['getCode']),
+  },
   methods: {
+    ...mapMutations('login', ['setCode', 'remove']),
+    ...mapMutations('myStore', ['setEmail', 'removeEmail']),
     logouth(){
-      if (localStorage.res || localStorage.token || localStorage.refreshToken){
+      if (this.setCode){
+        this.remove()
+        this.removeEmail()
         localStorage.removeItem('res')
         localStorage.removeItem('token')
-        localStorage.removeItem('refreshToken')
         this.$q.notify({
           message: 'logouth successfully',
           position: 'top',

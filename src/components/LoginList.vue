@@ -47,41 +47,7 @@ name: "Log-in",
             position: 'top',
             color: 'red'
           })
-    }
-
-      // localStorage.setItem('test', JSON.stringify(user) )
-      // const esiminch = localStorage.getItem('test')
-      // if (esiminch){
-      //   // console.log(JSON.parse(esiminch));
-      // }
-      // this.setEmail('sdfsd')
-      //     this.$q.notify({
-      //       message: 'Enter the correct Login',
-      //       position: 'top',
-      //       color: 'red'
-      //     })
-    // }
-
-      // axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GeneratePassword', this.form)
-      //   .then((res) => {
-      //     if (res.status === 200){
-      //       localStorage.setItem('res', this.form.email)
-      //       this.$q.notify({
-      //         message: 'You have successfully passed the verification',
-      //         position: 'top',
-      //         color: 'green'
-      //       })
-      //       setTimeout(() => {
-      //         this.$router.push('/code')
-      //       }, 2000)
-      //     }})
-      //   .catch(err => {
-      //     this.$q.notify({
-      //       message: 'Enter the correct Login',
-      //       position: 'top',
-      //       color: 'red'
-      //     })
-      //   })
+        }
     },
   },
 

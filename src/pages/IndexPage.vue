@@ -7,6 +7,7 @@
 <script>
 import { defineComponent } from 'vue'
 import index from 'components/index'
+import { mapGetters } from "vuex";
 export default defineComponent({
   name: 'IndexPage',
   components: { index},
@@ -15,9 +16,12 @@ export default defineComponent({
     }
   },
   mounted() {
-    if (!localStorage.token){
-      this.$router.push('/')
-    }
+      if (!this.getCode.token){
+        this.$router.push('/')
+      }
+  },
+  computed: {
+    ...mapGetters('login',['getCode']),
   },
 })
 </script>

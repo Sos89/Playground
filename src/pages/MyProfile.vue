@@ -96,14 +96,19 @@ import WednesdayNext from "components/profile/Wednesday/WednesdayNext";
 import FridayInput from "components/profile/Friday/Friday";
 import FridayNext from "components/profile/Friday/FridayNext";
 import ThursdayInput from "components/profile/Thursday/Thursday";
+import { mapGetters } from "vuex";
 export default {
   name: "MyProfile",
   components: { ThursdayInput, FridayNext, FridayInput, WednesdayNext, WednesdayInput, TuesdayNext, TuesdayInput, MondayNext, MondayInput, SundayInput, GitHubProfile, SlackProfile, CheckBox, AbsenceS, StartInput, PhoneNumber, PersonalEmail, EmailInput, BirthDataInput, LastName, FirstName },
   mounted() {
-    if (!localStorage.res && !localStorage.token && !localStorage.refreshToken){
+    if (this.getCode !== localStorage.token && this.getEmail !== localStorage.res){
       this.$router.push('/')
     }
   },
+  computed: {
+    ...mapGetters('login',['getCode']),
+    ...mapGetters('myStore',['getEmail']),
+  }
 };
 </script>
 
