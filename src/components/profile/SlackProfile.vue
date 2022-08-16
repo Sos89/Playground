@@ -2,12 +2,13 @@
 <div>
   <p class="myAccount">My accounts</p>
   <label class="slack" for="slack">Slack</label>
-  <q-input color="bg" style="width: 345px" v-model="text" label="Enter you slack user name">
+  <q-input color="bg" style="width: 345px" v-model="text">
     <template v-slot:prepend>
       <img
         alt="Quasar logo"
         src="~assets/image/slack.svg"
       >
+      {{slack}}
     </template>
   </q-input>
 
@@ -18,6 +19,7 @@
 import { ref } from 'vue'
 export default {
   name: "SlackProfile",
+  props: ['slack'],
   setup(){
     return {
       text: ref('')

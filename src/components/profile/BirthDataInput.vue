@@ -1,7 +1,14 @@
 <template>
 <div class="column">
   <label for="birth">Date of birth</label>
-  <q-input v-model="date" style="width: 223px; " :dense="dense"  type="date" />
+  <q-input v-model="date" style="width: 223px; " :dense="dense">
+    <template v-slot:prepend>
+      <p>{{birthDay}}</p>
+    </template>
+    <template v-slot:append>
+      <q-icon name="schedule"></q-icon>
+    </template>
+  </q-input>
 </div>
 </template>
 
@@ -9,10 +16,10 @@
 import { ref } from 'vue'
 export default {
   name: "BirthDataInput",
+  props: ['birthDay'],
   setup () {
     return {
       date: ref(''),
-      ph: ref(''),
       dense: ref(true)
     }
   }
@@ -34,5 +41,8 @@ label{
 }
 q-input{
   margin-top: 8px;
+}
+p{
+  font-size: 16px;
 }
 </style>

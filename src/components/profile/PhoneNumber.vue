@@ -3,12 +3,15 @@
 
   <q-input
     v-model="phone"
-    label="Phone"
     mask="(###) ### - ###"
     unmasked-value
     :dense="dense"
     style="width: 345px"
-  />
+  >
+    <template v-slot:prepend>
+      <p>{{phoneNumber}}</p>
+    </template>
+  </q-input>
 </div>
 </template>
 
@@ -16,6 +19,7 @@
 import { ref } from 'vue'
 export default {
   name: "PhoneNumber",
+  props: ['phoneNumber'],
   setup () {
     return {
       phone: ref(''),

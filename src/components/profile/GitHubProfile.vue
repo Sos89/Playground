@@ -1,12 +1,13 @@
 <template>
 <div class="git_div">
   <label class="git" for="slack">GitHub</label>
-  <q-input color="bg" style="width: 345px" v-model="text" label="Enter you github user name">
+  <q-input color="bg" style="width: 345px" v-model="text" >
     <template v-slot:prepend>
       <img
         alt="Quasar logo"
         src="~assets/image/git.jpg"
       >
+      {{git}}
     </template>
   </q-input>
 
@@ -17,6 +18,7 @@
 import { ref } from 'vue'
 export default {
   name: "GitHubProfile",
+  props: ['git'],
   setup(){
     return {
       text: ref('')

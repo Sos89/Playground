@@ -1,7 +1,11 @@
 <template>
 <div class="column">
   <label for="email">Email</label>
-  <q-input v-model="text" style="width: 345px" :dense="dense" />
+  <q-input v-model="text" style="width: 345px" :dense="dense" >
+    <template v-slot:prepend>
+      <p>{{email}}</p>
+    </template>
+  </q-input>
 </div>
 </template>
 
@@ -9,6 +13,7 @@
 import { ref } from 'vue'
 export default {
   name: "EmailInput",
+  props: ['email'],
   setup () {
     return {
       text: ref(''),

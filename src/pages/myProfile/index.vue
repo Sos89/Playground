@@ -8,14 +8,32 @@
       <div class="info_div row">
         <div class="column">
           <div class="row">
-            <FirstName></FirstName>
-            <LastName></LastName>
-            <BirthDataInput></BirthDataInput>
+            <FirstName
+              v-if="getUser"
+              :first-name="getUser.firstName"
+            ></FirstName>
+            <LastName
+              v-if="getUser"
+              :last-name="getUser.lastName"
+            ></LastName>
+            <BirthDataInput
+              v-if="getUser"
+              :birth-day="getUser.dateOfBirth"
+            ></BirthDataInput>
           </div>
           <div class="row email">
-            <EmailInput></EmailInput>
-            <PersonalEmail></PersonalEmail>
-            <PhoneNumber></PhoneNumber>
+            <EmailInput
+              v-if="getUser"
+              :email="getUser.email"
+            ></EmailInput>
+            <PersonalEmail
+              v-if="getUser"
+              :personal="getUser.personalEmail"
+            ></PersonalEmail>
+            <PhoneNumber
+              v-if="getUser"
+              :phone-number="getUser.mobilePhone"
+            ></PhoneNumber>
           </div>
           <div class="for_address_row">
             <StartInput></StartInput>
@@ -24,8 +42,14 @@
           </div>
         </div>
         <div class="myAccountDiv">
-          <SlackProfile></SlackProfile>
-          <GitHubProfile></GitHubProfile>
+          <SlackProfile
+            v-if="getUser"
+            :slack="getUser.slackUserName"
+          ></SlackProfile>
+          <GitHubProfile
+            v-if="getUser"
+            :git="getUser.gitHubUserName"
+          ></GitHubProfile>
         </div>
       </div>
     </div>
@@ -96,10 +120,14 @@ import WednesdayNext from "components/profile/Wednesday/WednesdayNext";
 import FridayInput from "components/profile/Friday/Friday";
 import FridayNext from "components/profile/Friday/FridayNext";
 import ThursdayInput from "components/profile/Thursday/Thursday";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "MyProfile",
   components: { ThursdayInput, FridayNext, FridayInput, WednesdayNext, WednesdayInput, TuesdayNext, TuesdayInput, MondayNext, MondayInput, SundayInput, GitHubProfile, SlackProfile, CheckBox, AbsenceS, StartInput, PhoneNumber, PersonalEmail, EmailInput, BirthDataInput, LastName, FirstName },
+
+  async  created() {
+   await this.fetchUsers()
+  },
   mounted() {
     if (this.getCode !== localStorage.token && this.getEmail !== localStorage.res){
       this.$router.push('/')
@@ -108,6 +136,10 @@ export default {
   computed: {
     ...mapGetters('login',['getCode']),
     ...mapGetters('myStore',['getEmail']),
+    ...mapGetters('user',['getUser']),
+  },
+  methods: {
+    ...mapActions('user', ['fetchUsers']),
   }
 };
 </script>
