@@ -36,7 +36,10 @@
             ></PhoneNumber>
           </div>
           <div class="for_address_row">
-            <StartInput></StartInput>
+            <StartInput
+              v-if="getUser"
+              :start-data="getUser.startDate"
+            ></StartInput>
             <AbsenceS></AbsenceS>
             <CheckBox></CheckBox>
           </div>
@@ -128,14 +131,14 @@ export default {
   async  created() {
    await this.fetchUsers()
   },
-  mounted() {
-    if (this.getCode !== localStorage.token && this.getEmail !== localStorage.res){
-      this.$router.push('/')
-    }
-  },
+  // mounted() {
+  //   if (this.getCode !== localStorage.token && this.getEmail !== localStorage.res){
+  //     this.$router.push('/')
+  //   }
+  // },
   computed: {
     ...mapGetters('login',['getCode']),
-    ...mapGetters('myStore',['getEmail']),
+    ...mapGetters('email',['getEmail']),
     ...mapGetters('user',['getUser']),
   },
   methods: {

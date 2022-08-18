@@ -1,7 +1,11 @@
 <template>
 <div class="column">
   <label for="birth">Start Date</label>
-  <q-input v-model="date" style="width: 223px; " :dense="dense"  type="date" />
+  <q-input v-model="date" style="width: 223px; " :dense="dense" disable>
+    <template v-slot:prepend>
+      <p>{{ startData }}</p>
+    </template>
+  </q-input>
 </div>
 </template>
 
@@ -9,6 +13,7 @@
 import { ref } from 'vue'
 export default {
   name: "StartInput",
+  props: ['startData'],
   setup () {
     return {
       date: ref(''),
@@ -34,5 +39,8 @@ label{
 }
 q-input{
   margin-top: 8px;
+}
+p{
+  font-size: 18px!important;
 }
 </style>

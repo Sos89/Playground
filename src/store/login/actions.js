@@ -1,13 +1,10 @@
-import axios from "axios";
+import verification from "./../../service/auth-service";
 export async function fetchCode ({commit}, payload) {
   try {
-    const res = await axios.post('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/LoginWithCode', payload)
-    if (res.status === 200){
-      const jwt = res.data.jwt
-      commit('setCode', jwt)
-    }
+    const res = await verification.verification_code(payload)
+      commit('setCode', res)
   }
   catch (err) {
-    return false
+    console.log(err);
   }
 }

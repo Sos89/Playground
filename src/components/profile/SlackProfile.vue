@@ -2,7 +2,7 @@
 <div>
   <p class="myAccount">My accounts</p>
   <label class="slack" for="slack">Slack</label>
-  <q-input color="bg" style="width: 345px" v-model="text">
+  <q-input color="bg" style="width: 345px" v-model="text" disable>
     <template v-slot:prepend>
       <img
         alt="Quasar logo"

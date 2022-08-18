@@ -16,7 +16,7 @@ export default defineComponent({
     }
   },
   mounted() {
-      if (!this.getCode.token){
+      if (!this.getCode){
         this.$router.push('/')
       }
   },

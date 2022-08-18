@@ -1,14 +1,9 @@
-import axios from "axios";
+import user from './../../service/user'
 export async function fetchUsers ({ commit }) {
   try {
-
-     const token = JSON.parse(localStorage.getItem('token'))
-    const {data} = await axios.get('https://azapp-playground-demo-api.azurewebsites.net/api/Accounts/GetCurrentAppUser',{
-      headers: {
-        "Authorization": `Bearer ${token.token}`
-      }
-    })
-    commit('setUsers', data)
+    const res = await user.userInfo()
+    console.log(res.data, 'user action');
+    commit('setUsers', res.data)
   }
   catch ({response}){
     if (response.status === 401){
@@ -16,6 +11,7 @@ export async function fetchUsers ({ commit }) {
       localStorage.removeItem('res')
       this.$router.push('/')
     }
+    console.log(response);
   }
 }
 

@@ -7,6 +7,7 @@
     unmasked-value
     :dense="dense"
     style="width: 345px"
+    disable
   >
     <template v-slot:prepend>
       <p>{{phoneNumber}}</p>

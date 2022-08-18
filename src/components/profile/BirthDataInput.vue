@@ -1,7 +1,7 @@
 <template>
 <div class="column">
   <label for="birth">Date of birth</label>
-  <q-input v-model="date" style="width: 223px; " :dense="dense">
+  <q-input v-model="date" style="width: 223px; " :dense="dense" disable>
     <template v-slot:prepend>
       <p>{{birthDay}}</p>
     </template>

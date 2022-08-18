@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     ...mapMutations('login', ['setCode', 'remove']),
-    ...mapMutations('myStore', ['setEmail', 'removeEmail']),
+    ...mapMutations('email', ['setEmail', 'removeEmail']),
     logouth(){
       if (this.setCode){
         this.remove()

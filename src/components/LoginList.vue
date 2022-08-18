@@ -2,13 +2,14 @@
     <div class="flex column">
       <div class="input_div">
       <p class="login">Login</p>
-        <label class="enter_email" for="email">Enter your email</label>
+        <label class="enter_email" :class="{active: isActive}" for="email">Enter your email</label>
         <form @submit.prevent="reset">
           <q-input
             v-model="form.email"
             type="email"
             class="input"
             placeholder="myemail@mail.com"
+            :class="{active: isActive}"
           />
           <q-btn no-caps unelevated class="q-mt-sm" type="submit" id="button" label="Send code" color="primary"/>
         </form>
@@ -25,17 +26,21 @@ name: "Log-in",
   setup () {
     return {
       form: {
-        email: ''
+        email: 'demo@demo.com'
       },
     }
   },
-
+  data(){
+      return {
+        isActive: false
+      }
+  },
   computed: {
-    ...mapGetters('myStore',['getEmail']),
+    ...mapGetters('email',['getEmail']),
   },
   methods: {
-    ...mapActions("myStore",["fetchEmail"]),
-    ...mapMutations("myStore",['setEmail']),
+    ...mapActions("email",["fetchEmail"]),
+    ...mapMutations("email",['setEmail']),
   async  reset() {
    await this.fetchEmail(this.form)
     if (this.getEmail ) {
@@ -47,6 +52,7 @@ name: "Log-in",
             position: 'top',
             color: 'red'
           })
+      this.isActive = true
         }
     },
   },
@@ -55,7 +61,9 @@ name: "Log-in",
 </script>
 
 <style scoped>
-
+.active ::placeholder{
+  color: darkred!important;
+}
 .input_div{
   margin-left: 115px;
   width: 370px;

@@ -1,7 +1,7 @@
 <template>
 <div class="git_div">
   <label class="git" for="slack">GitHub</label>
-  <q-input color="bg" style="width: 345px" v-model="text" >
+  <q-input color="bg" style="width: 345px" v-model="text" disable>
     <template v-slot:prepend>
       <img
         alt="Quasar logo"

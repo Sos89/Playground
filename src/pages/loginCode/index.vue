@@ -16,7 +16,7 @@ mounted() {
   }
 },
   computed: {
-    ...mapGetters('myStore',['getEmail']),
+    ...mapGetters('email',['getEmail']),
   },
 };
 </script>

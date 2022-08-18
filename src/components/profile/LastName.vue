@@ -1,7 +1,7 @@
 <template>
 <div class="column">
   <label for="lastname">Last name</label>
-  <q-input v-model="text" style="width: 223px" :dense="dense" >
+  <q-input v-model="text" style="width: 223px" :dense="dense" disable>
     <template v-slot:prepend>
       <p>{{lastName}}</p>
     </template>
